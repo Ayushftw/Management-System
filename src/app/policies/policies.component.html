@@ -1,0 +1,317 @@
+  <div class="main-content">
+    <div class="bubble-icon">
+        <span class="bubble-number">Total Policies: {{ productData.length }}</span>
+      </div>
+      <div class="rectangle" *ngIf="productData.length > 0">
+    <h2>Plolicy Details</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Organization</th>
+                <th>Product Name</th>
+                <th>Premium</th>
+                <th>Org State</th>
+                <th>Branch</th>  
+                <th>Customer Name</th>
+                <th>Mobile</th>
+                <th>Gender</th>
+                <th>Email</th>
+                <th>Customer State</th>
+                <th>Address</th>
+                <th>Language</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let product of productData">
+                <td>{{ product.organization }}</td>
+                <td>{{ product.productName }}</td>
+                <td>{{ product.premium }}</td>
+                <td>{{ product.state }}</td>
+                <td>{{ product.branch }}</td>
+                <td>{{ product.selfData?.name }}</td>
+                <td>{{ product.selfData?.mobile }}</td>
+                <td>{{ product.selfData?.gender }}</td>
+                <td>{{ product.selfData?.email }}</td>
+                <td>{{ product.selfData?.cstate }}</td>
+                <td>{{ product.selfData?.address }}</td>
+                <td>{{ product.selfData?.language }}</td>
+                <td>
+                <!-- <button (click)="editRecord(i)">Edit</button>  Edit button -->
+                <button mat-icon-button class="edit-button"  (click)="editRecord(product)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button class="del" (click)="deleteRecord(product.id)">
+                  <mat-icon>delete</mat-icon>
+                </button> <!-- Delete button -->
+                
+              </td>
+  
+            </tr>
+        </tbody> 
+    </table>
+  </div>
+  </div>
+
+  <div class="bubble-button" (click)="toggleFormVisibility()">
+    <span class="plus-sign">+</span>
+      Add Policies 
+    </div>
+
+    
+  <div class="modal" *ngIf="isFormVisible">
+    <div class="modal-content medium-modal">
+      
+  <form *ngIf="isFormVisible" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <span class="close" (click)="closeForm()">&times;</span>
+
+
+  <div class="container ">
+  <div class="modal-header">
+    <h4 class="modal-title">{{ editMode ? 'Edit Policy' : 'Add Policy' }}</h4>
+  <div class="premium-display">
+    Total Premium: {{ form.get('premium').value | currency:'INR':'symbol' }}
+  </div>
+
+  </div>
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" data-bs-toggle="tab" href="#product"(click)="toggleProductSection(); $event.preventDefault()">Product</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="tab" href="#self" (click)="toggleSelfSection(); $event.preventDefault()">Self</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="tab" href="#spouse" (click)="toggleSpouseSection(); $event.preventDefault()" [hidden]="!isSpouseSectionVisible">Spouse</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="tab" href="#dependent" (click)="toggleDependentSection(); $event.preventDefault()" [hidden]="!isDependentsSectionVisible">Dependents</a>
+    </li>
+  </ul>
+
+
+
+    <div class="tab-content">
+  <!-- Product Section -->
+
+  <div id="product" class="container tab-pane active"><br>
+  <div *ngIf="isProductSectionVisible">
+  <div class="row">
+
+  <div class="col-md-6">
+
+  <label for="organization">Organization:</label>
+  <select id="organization" formControlName="organization" class="form-select">
+  <option value="" disabled selected>Select Organization</option>
+  <option *ngFor="let org of orgData" [value]="org?.name">{{ org?.name }}</option>
+  </select>
+
+  </div>
+  <div class="col-md-6">
+
+  <label for="productName">Product Name:</label>
+    <select formControlName="productName"  class="form-select" (change)="updatePremium()">
+    <option value="" disabled selected>Select product</option>
+      <option *ngFor="let productName of productNames" [value]="productName">{{ productName }}</option>
+    </select>     
+
+  </div>
+  <div class="col-md-6">
+  <label for="premium">Premium:</label>
+  <input type="text" id="premium" formControlName="premium" readonly><br>
+  </div>
+  <div class="col-md-6">
+  <label for="state">State:</label>
+  <input type="text" id="state" formControlName="state"><br>
+  </div>
+  <div class="col-md-6">  
+  <label for="branch">Branch:</label>
+  <select formControlName="branch" class="form-select">
+    <option *ngFor="let branchName of branchNames" [value]="branchName">{{ branchName }}</option>
+  </select>
+  </div>
+
+
+
+    
+  </div>
+  <div class="form-check">
+  <input class="form-check-input" type="checkbox"  (change)="toggleSpouseSection($event.target.checked)" (change)="updatePremium($event.target.checked)" >
+  <label class="form-check-label">
+    <h6>Covered Members:</h6>
+    Spouse/Co-Applicant
+  </label>
+  </div>
+
+  <div class="form-check2">
+  <input class="form-check-input" type="checkbox" (change)="toggleDependentSection($event.target.checked)">
+  <label class="form-check-label2">
+  Dependents
+  </label>
+  </div>
+
+
+
+
+  </div>
+
+  </div>
+
+
+  <!-- Self Section -->
+  <div id="self" class="container tab-pane fade"><br>
+  <div *ngIf="isSelfSectionVisible" >
+
+    <div class="row">
+
+  <div class="col-md-6">
+  <label for="name">Name:</label>
+    <input type="text" id="name" formControlName="name"><br>
+  </div>
+  <div class="col-md-6">
+  <label for="mobile">Mobile:</label>
+    <input type="tel" id="mobile" formControlName="mobile"><br>
+  </div>
+  <div class="col-md-6">
+  <label for="gender" class="form-label">Gender:</label>
+  <select id="gender" formControlName="gender" class="form-select">
+    <option value="" disabled selected>Select Gender</option>
+    <option value="Male">Male</option>
+    <option value="Female">Female</option>
+    <option value="Other">Other</option>
+  </select>
+  </div>
+  <div class="col-md-6">
+  <label for="email">Email:</label>
+    <input type="email" id="email" formControlName="email"><br>
+  </div>
+  <div class="col-md-6">
+  <label for="cstate">State:</label>
+  <input type="text" id="cstate" formControlName="cstate"><br>
+  </div>
+  <div class="col-md-6">
+  <label for="address">Address:</label>
+  <input type="text" id="address" formControlName="address"><br>
+  </div>
+  <div class="col-md-6">
+  <label for="language">Language:</label>
+  <input type="text" id="language" formControlName="language"><br>
+  </div>
+
+  </div>
+
+    </div>
+    </div>
+
+
+  <!-- Inside the Spouse Section -->
+  <div id="spouse" class="container tab-pane fade"><br>
+  <div *ngIf="isSpouseSectionVisible" >
+
+  <div class="row">
+
+    <div class="col-md-6">
+      <label for="spouseName">Spouse Name:</label>
+      <input type="text" id="spouseName" formControlName="spouseName"><br>
+    </div>
+
+    <div class="col-md-6">
+      <label for="spouseMobile">Mobile:</label>
+      <input type="tel" id="mobile" formControlName="spouseMobile"><br>
+    </div>
+
+
+    <div class="col-md-6">
+      <label for="spouseGender" class="form-label">Gender:</label>
+      <select id="spouseGender" formControlName="spouseGender" class="form-select">
+        <option value="" disabled selected>Select Gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+  </div>  
+
+
+  </div>
+  </div>
+
+  <div id="dependent" class="container tab-pane fade">
+  <button *ngIf="isDependentsSectionVisible && form.get('dependentsName').value" (click)="addDependent()">Add Dependent</button>
+  <div *ngIf="isDependentsSectionVisible">
+    <h2>Dependents Section</h2>
+    <button type="button" class = "btn-btn-dependent" (click)="toggleDependentFields()">
+      <span class="plus-sign">{{ editMode ? '✎' : '+' }}</span>
+      {{ editMode ? 'Edit Policies' : 'Add Policies' }}</button>
+
+    <table *ngIf="isDependentFieldsVisible" style="margin-top: 50px;">
+      <thead>
+          <tr>
+            <th>Dependent's Name</th>
+            <th>Dependent's Gender</th>
+            <th>Dependent's Relation</th>
+            <th>Action</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let dependent of dependentsData; let i = index">
+            <td>
+                <input type="text" formControlName="dependentsName{{i}}" id="dependentsName{{i}}">
+            </td>
+            <td>
+                <input type="text" formControlName="dependentsGender{{i}}" id="dependentsGender{{i}}">
+            </td>
+            <td>
+                <input type="text" formControlName="dependentsRelation{{i}}" id="dependentsRelation{{i}}">
+            </td>
+            <td>
+                <button type="button" (click)="removeDependent(i)" class="small-button"><span class="plus-sign">-</span></button>
+            </td>
+          </tr>
+          <tr *ngIf="isDependentFieldsVisible">
+            <td>
+                <input type="text" formControlName="newDependentsName" id="newDependentsName">
+            </td>
+            <td>
+              <select formControlName="newDependentsGender" id="newDependentsGender" class="form-select">
+                <option value="" disabled selected>Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+            </td>
+            <td>
+                <select type="text" formControlName="newDependentsRelation" id="newDependentsRelation" class="form-select">
+                  <option value="" disabled selected>Select Relation</option>
+                  <option value="Son">Son</option>
+                  <option value="Father">Father</option>
+                  <option value="Daughter">Daugther</option>
+                  <option value="Mother">Mother</option>
+                </select>
+            </td>
+            <td >
+              <button type="button" (click)="addNewDependent()"  class= "small-button" style="margin-bottom: 10px;"> <span class="plus-sign">+</span></button>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  </div>
+
+  </div>
+  <div class="modal-footer"> 
+    <button type="submit">{{ editMode ? 'Update Policy' : 'Create New Policy' }}</button>
+  </div>
+
+  </div>
+
+  </form>
+  </div>
+  </div>
+
+  <div class="modal" *ngIf="EditForm">
+
+  </div>

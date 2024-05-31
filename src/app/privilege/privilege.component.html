@@ -1,0 +1,62 @@
+<form [formGroup]="privilegeForm" (ngSubmit)="onSubmit()" class="privilege-form">
+  <div class="form-group">
+    <label for="organization">Organization:</label>
+    <select formControlName="organization" id="organization">
+      <option value="" disabled>Select an organization</option>
+      <option *ngFor="let org of orgData" [value]="org.name">{{ org.name }}</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="role">Role:</label>
+    <select formControlName="role" id="role">
+      <option value="" disabled>Select a role</option>
+      <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <h3>All Users</h3>
+    <input type="checkbox" (change)="selectAllUsersAndPrivileges($event.target.checked)"> Select All
+  </div>
+
+  <div class="form-group">
+    <h6>Users</h6>
+    <div formGroupName="userPrivileges" class="checkbox-group">
+      <div *ngFor="let action of ['add', 'edit', 'delete', 'view']">
+        <input type="checkbox" formControlName="{{action}}" [disabled]="shouldDisableActions() && action !== 'view'"> {{ action | uppercase }}
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <h6>Organization</h6>
+    <div formGroupName="organizationPrivileges" class="checkbox-group">
+      <div *ngFor="let action of ['add', 'edit', 'delete', 'view']">
+        <input type="checkbox" formControlName="{{action}}" [disabled]="shouldDisableActions() && action !== 'view'"> {{ action | uppercase }}
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <h6>Branch</h6>
+    <div formGroupName="branchPrivileges" class="checkbox-group">
+      <div *ngFor="let action of ['add', 'edit', 'delete', 'view']">
+        <input type="checkbox" formControlName="{{action}}" [disabled]="shouldDisableActions() && action !== 'view'"> {{ action | uppercase }}
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <h6>Product</h6>
+    <div formGroupName="productPrivileges" class="checkbox-group">
+      <div *ngFor="let action of ['add', 'edit', 'delete', 'view']">
+        <input type="checkbox" formControlName="{{action}}" [disabled]="shouldDisableActions() && action !== 'view'"> {{ action | uppercase }}
+      </div>
+    </div>
+  </div>
+
+  <div class="button-group">
+    <button type="submit">Save</button>
+    <button (click)="deletePrivileges()">Delete Privileges</button>
+  </div>
+</form>

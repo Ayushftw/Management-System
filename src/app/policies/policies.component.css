@@ -1,0 +1,357 @@
+
+.rectangle {
+  background-color: lightgray;
+  border: 1px solid gray;
+  border-radius: 10px;
+  padding: 30px;
+  margin: 100px 10px ; 
+  max-width: calc(100% - 40px); 
+  width: calc(100% - 40px);
+  position: relative;
+  box-sizing: border-box;
+  margin-left: 50px; 
+  
+  }
+  
+.rectangle h2 {
+  margin-bottom: 20px;
+}
+
+.rectangle table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.rectangle th,
+.rectangle td {
+  border: 1px solid gray;
+  padding: 8px;
+}
+
+.rectangle th {
+  background-color: #f2f2f2;
+}
+
+.rectangle tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+    
+    h1 {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+   
+    form button[type="submit"] {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        margin-top: 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"] {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    select {
+        margin-bottom: 20px; 
+    }
+    @media (max-width: 768px) {
+        form {
+            max-width: 90%;
+        }
+    }
+
+    button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    button + button {
+        margin-left: 10px; 
+    }
+
+    @media (max-width: 768px) {
+        button {
+            width: 100%;
+            margin-left: 0; 
+            margin-bottom: 10px; 
+        }
+    }
+    .section-link {
+        display: inline-block;
+        padding: 10px 20px;
+        margin: 10px 5px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .section-link:hover {
+        background-color: #0056b3;
+    }
+
+    .section-link:active {
+        background-color: #003c80;
+    }
+
+
+  
+      .bubble-icon {
+        position: absolute;
+        top: 4%;
+        left: 50px; 
+        width: 280px;
+        height: 60px;
+        background-color: blue;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1; 
+      }
+      
+      .bubble-number {
+        font-size: 14px;
+        color: white;
+      }
+      
+      .bubble-button {
+        position: fixed;
+        top: 88px;
+        right: 180px;
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 50px;
+        cursor: pointer;
+      }
+      
+      .bubble-button:hover {
+        background-color: #0056b3;
+      }
+      
+      .plus-sign {
+        font-size: 1.2em;
+        margin-right: 5px;
+      }
+      /* Modal Styles */
+      .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+        z-index: 1000; /* Adjust this value if necessary */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+       }
+       
+      
+      .modal-content {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+        
+      }
+      
+     
+      /* Close button */
+      .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+        font-size: 20px;
+        color: #aaa;
+      }
+      
+      .close:hover,
+      .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .form-container .form-row {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 50px; /* Add margin to separate each form row */
+      }
+      
+      .form-container .form-group {
+        flex: 1;
+        margin-right: 10px; /* Adjust spacing between form fields */
+      }
+      
+      .form-container label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      
+      
+      /* Media queries for responsiveness */
+      @media screen and (max-width: 768px) {
+        .rectangle {
+          margin: 10px 20px; /* Adjusted margin for smaller screens */
+          max-width: calc(100% - 20px); /* Adjusted max-width for smaller screens */
+          width: calc(100% - 20px);
+          padding: 10px;
+        }
+        .bubble-button {
+          position: fixed;
+        }
+      
+        .bubble-icon {
+          top: 20px;
+          left: 20px;
+        }
+      
+        .bubble-button {
+          right: 20px;
+        }
+      }
+      .main-content {
+        position: fixed;
+        top: 20px; /* Height of the toolbar */
+        right: 160px; /* Width of the sidenav */
+        bottom: 40px; /* Height of the bubble button */
+        left: 250px; /* Width of the sidenav */
+        margin: 20px; 
+        flex:1;
+      } 
+      .modal-header {
+        background: #007bff !important;
+        color: #fff;
+        border-bottom: 1px solid #e9ecef;
+        margin-top: 0;
+        margin-bottom: 20px !important; /* Only bottom margin added */
+    }
+    .form-check {
+      display: flex;
+      align-items: center; /* Align items vertically */
+    }
+    
+    .form-check-input {
+      margin-right: 6px; /* Adjust margin as needed */
+      margin-top: 14px;
+    }
+
+    .form-check2 {
+      display: flex;
+      align-items: center; /* Align items vertically */
+    }
+    .form-check-label2 {
+      margin-top: 20px;
+    }
+    #dependent {
+      position: relative;
+    }
+    
+    .btn-btn-dependent {
+      position: absolute;
+      top: 0;
+      right: 10px; /* Adjust the value to move the button to the left */
+      margin-bottom: 10px;
+      margin-left: 5px;
+    }
+    
+    /* CSS to add space between fields */
+   /* CSS to add space between fields in the dependent section */
+#dependent input[type="text"],
+#dependent select {
+  margin-bottom: 20px; /* Adjust as needed */
+  width: 200px;
+  margin-left: 5px;
+}
+
+.header {
+  margin-bottom: 20px; /* Adjust as needed */
+}
+
+/* CSS to add space between main body and footer */
+.footer {
+  margin-top: 20px; /* Adjust as needed */
+}
+
+/* CSS to add space between main content and dependent section */
+.main-content {
+  margin-top: 20px; /* Adjust as needed */
+}
+
+/* CSS to add space between dependent section and footer */
+#dependent {
+  margin-bottom: 20px; /* Adjust as needed */
+}
+.small-button {
+  padding: 5px 10px; /* Adjust padding to make the button smaller */
+  font-size: 14px; /* Adjust font size if needed */
+}
+/* CSS to increase the size of form select fields */
+formselect {
+  width: 100%; /* Set width to 100% to occupy the entire available space */
+  padding: 8px; /* Adjust padding as needed */
+  margin-bottom: 10px; /* Add margin bottom for spacing */
+}
+.del {
+  all: unset; /* Resets all styles to default */
+  cursor: pointer; /* Ensures it still looks clickable */
+}
+
+.del mat-icon {
+  vertical-align: middle; /* Ensures the icon is aligned correctly */
+  font-size: 24px; /* Sets a standard icon size */
+  color: #ff0000; /* Red color for the delete icon */
+}
+.premium-display {
+  float: right;
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-right: 20px;
+}
+/* Styling the edit button */
+.edit-button {
+  background-color: transparent; /* Transparent background */
+  border: none; /* No border */
+  cursor: pointer; /* Cursor style */
+  padding: 0; /* Remove default padding */
+}
+
+/* Styling the icon inside the button */
+.edit-button mat-icon {
+  font-size: 24px; /* Adjust icon size */
+  color: #007bff; /* Blue color */
+}
+
+/* Hover effect */
+.edit-button:hover mat-icon {
+  color: #0056b3; /* Darker blue color on hover */
+}

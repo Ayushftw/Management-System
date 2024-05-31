@@ -1,0 +1,215 @@
+.rectangle {
+    background-color: lightgray;
+    border: 1px solid gray;
+    border-radius: 10px;
+    padding: 30px;
+    margin: 100px 10px ; 
+    max-width: calc(100% - 40px); 
+    width: calc(100% - 40px);
+    position: relative;
+    box-sizing: border-box;
+    margin-left: 50px; 
+    
+    }
+    
+  .rectangle h2 {
+    margin-bottom: 20px;
+  }
+  
+  .rectangle table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+  }
+  
+  .rectangle th,
+  .rectangle td {
+    border: 1px solid gray;
+    padding: 8px;
+  }
+  
+  .rectangle th {
+    background-color: #f2f2f2;
+  }
+  
+  .rectangle tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  
+  .bubble-icon {
+    position: absolute;
+    top: 3%;
+    left: 50px; 
+    width: 280px;
+    height: 60px;
+    background-color: blue;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1; 
+  }
+  
+  .bubble-number {
+    font-size: 14px;
+    color: white;
+  }
+  
+  .bubble-button {
+    position: fixed;
+    top: 80px;
+    right: 200px;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+  }
+  
+  .bubble-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .plus-sign {
+    font-size: 1.2em;
+    margin-right: 5px;
+  }
+  /* Modal Styles */
+  .modal {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; 
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    width: 500px; 
+    
+    
+  }
+  
+  /* Form Styles */
+  
+  .form-container div {
+    display: inline-block; /* Display form fields side by side */
+    margin-right: 20px; /* Adjust spacing between form fields */
+    
+  }
+  
+  .form-container h2 {
+    margin-bottom: 20px;
+    background-color: yellow; /* Highlighted heading */
+    padding: 10px; /* Padding for the heading */
+    border-radius: 5px;
+  }
+  
+  
+  .form-container label {
+    display: block;
+    margin-bottom: 5px;
+    color:  #000;
+    font-size: 17px;
+  }
+  
+  .form-container input[type="text"],
+  .form-container input[type="email"],
+  .form-container input[type="password"] {
+   width: calc(100% - 20px);
+   padding: 10px; /* Reduced padding for input fields */
+   margin-bottom: 3px;
+   border: 1px solid #ccc;
+   border-radius: 5px;
+   box-sizing: border-box;
+  }
+  
+  .form-container button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .form-container button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Close button */
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #aaa;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .form-container .form-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px; /* Add margin to separate each form row */
+  }
+  .form-container .form-group {
+    flex: 1;
+    margin-right: 10px; /* Adjust spacing between form fields */
+    margin-bottom: 10px; /* Reduced margin-bottom for less space between form fields */
+   }
+  
+  .form-container label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  
+  /* Media queries for responsiveness */
+  @media screen and (max-width: 768px) {
+    .rectangle {
+      margin: 10px 20px; /* Adjusted margin for smaller screens */
+      max-width: calc(100% - 20px); /* Adjusted max-width for smaller screens */
+      width: calc(100% - 20px);
+      padding: 10px;
+    }
+    .bubble-button {
+      position: fixed;
+    }
+  
+    .bubble-icon {
+      top: 20px;
+      left: 20px;
+    }
+  
+    .bubble-button {
+      right: 20px;
+    }
+  }
+  .main-content {
+    position: fixed;
+    top: 20px; /* Height of the toolbar */
+    right: 160px; /* Width of the sidenav */
+    bottom: 40px; /* Height of the bubble button */
+    left: 250px; /* Width of the sidenav */
+    margin: 20px; 
+    flex:1;/* Take remaining space */
+    /* overflow-y: scroll;
+    overflow-x: hidden;
+   */
+  } 

@@ -1,0 +1,18 @@
+{
+    "premiumJson": [
+      {
+        "name": "Health insurance",
+        "C": 100,
+        "S": 50,
+        "K": 10
+      },
+      {
+        "name": "Insurance",
+        "C": 200,
+        "S": 100,
+        "K": 20
+      }
+      
+    ]
+  }
+  

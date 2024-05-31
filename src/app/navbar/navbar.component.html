@@ -1,0 +1,55 @@
+<mat-toolbar color="primary">
+    <button mat-icon-button (click)="sidenav.toggle()" id="menuIcon" aria-label="Example icon-button with menu icon">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <span>My App</span>
+    <!-- <a mat-button routerLink="/home" class="top-menu-item"><mat-icon>home</mat-icon>Home</a>
+      <a mat-button routerLink="/contact" class="top-menu-item"><mat-icon>people</mat-icon>Contact</a>
+      <a mat-button routerLink="/blog" class="top-menu-item"><mat-icon>library_books</mat-icon>Blog</a> -->
+    <span class="example-spacer"></span>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="openProfileDialog()" aria-label="User Profile">Profile</button>
+        <button mat-menu-item (click)="onLogout()">Logout</button>
+      </mat-menu>
+  </mat-toolbar>
+
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav [fixedInViewport]="true" [fixedTopGap]="60" mode="side" [opened]="isSidenavOpened">
+        <div class="side-nav-items">
+            <div>
+                <a (click)="toggleCustomerSubmenu()" mat-button 
+                    class="side-menu-item"><mat-icon> format_list_bulleted</mat-icon>Users  <mat-icon>{{ isCustomerSubmenuOpen ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</mat-icon></a>
+                    <div *ngIf="isCustomerSubmenuOpen" class="submenu">
+                        <a [class.active]="activeRoute.includes('/dashboard/allusers')" (click)="sidenav.close()" mat-button routerLink="/dashboard/allusers"><mat-icon>work</mat-icon> All Users</a>
+                        <a [class.active]="activeRoute.includes('/dashboard/organisation')" (click)="sidenav.close()" mat-button routerLink="/dashboard/organisation"><mat-icon>work</mat-icon> Organisation</a>
+                        <a [class.active]="activeRoute.includes('/dashboard/branch')" (click)="sidenav.close()" mat-button routerLink="/dashboard/branch"><mat-icon>work</mat-icon> Branch</a>
+                        <a [class.active]="activeRoute.includes('/dashboard/privilege')" (click)="sidenav.close()" mat-button routerLink="/dashboard/privilege"><mat-icon>work</mat-icon> Privilege</a>
+                        <a [class.active]="activeRoute.includes('/dashboard/product')" (click)="sidenav.close()" mat-button routerLink="/dashboard/product"><mat-icon>work</mat-icon> Product</a>
+                        <a [class.active]="activeRoute.includes('/dashboard/policies')" (click)="sidenav.close()" mat-button routerLink="/dashboard/policies"><mat-icon>work</mat-icon> Policies</a>
+                    
+                       </div>
+            </div>
+             
+            <div>
+                <a (click)="sidenav.close()" mat-button routerLink="/dashboard/contact"
+                    class="side-menu-item"><mat-icon> format_list_bulleted</mat-icon>Contact  <mat-icon>{{ isCustomerSubmenuOpen ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</mat-icon></a>
+            </div>
+
+            <div>
+                <a (click)="sidenav.close()" mat-button routerLink="/dashboard/blog"
+                    class="side-menu-item"><mat-icon> format_list_bulleted</mat-icon>Blog  <mat-icon>{{ isCustomerSubmenuOpen ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</mat-icon></a>
+            </div>
+        </div>
+
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <div class="main-content">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-sidenav-content>
+
+</mat-sidenav-container>

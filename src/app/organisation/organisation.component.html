@@ -1,0 +1,134 @@
+<mat-sidenav-container class="container">
+    <mat-sidenav #sidenav [fixedInViewport]="true" [fixedTopGap]="60" mode="side" [opened]="isSidenavOpened">
+       <!-- Side Nav Content -->
+    </mat-sidenav>
+   
+    <div class="main-content">
+       <!-- Bubble Icon -->
+       <div class="bubble-icon">
+         <span class="bubble-number">Total Organizations: {{ filteredOrgs.length }}</span>
+       </div>
+       <!-- Rectangle with Table -->
+       <div class="rectangle">
+         <h2>Organizations</h2>
+         <div class="search-container">
+          <input type="text" [(ngModel)]="searchQuery" placeholder="Search by Org name" class="search-input">
+        </div>
+         <table>
+           <thead>
+             <tr>
+               <th>ID</th>
+               <th>Name</th>
+               <th>Address</th>
+               <th>Organisation Type</th>
+               <th>Phone Number</th>
+               <th>Actions</th>
+             </tr>
+           </thead>
+           <tbody>
+            <tr *ngFor="let org of filteredOrgs; let i = index">
+               <td>{{ i + 1 }}</td>
+               <td>{{ org.name }}</td>
+               <td>{{ org.address }}</td>
+               <td>{{ org.orgType }}</td>
+               <td>{{ org.phoneNumber }}</td>
+               <td>
+                 <button mat-icon-button *ngIf="canPerformAction('edit')" (click)="editOrg(i)">
+                   <mat-icon>edit</mat-icon>
+                 </button>
+                 <button mat-icon-button *ngIf="canPerformAction('delete')" (click)="removeOrg(i)">
+                   <mat-icon>delete</mat-icon>
+                 </button>
+               </td>
+             </tr>
+           </tbody>
+         </table>
+       </div>
+    </div>
+    <!-- Bubble Button -->
+    <div class="bubble-button" *ngIf="canPerformAction('add')" (click)="toggleAddOrgForm()">
+       <span class="plus-sign">+</span>
+       Add Organization
+    </div>
+    
+  <div class="modal" *ngIf="showAddOrgForm">
+    <div class="modal-content" >
+        <span class="close" (click)="closeAddOrgForm()">&times;</span>
+        <div class="form-container">
+           <h2>Add Organization</h2>
+           <form [formGroup]="addOrgForm" (ngSubmit)="addOrganization()">
+             <div class="form-row">
+               <div class="form-group">
+                 <label for="orgName" class="form-label">Name:</label>
+                 <input type="text" id="orgName" formControlName="name" class="form-control">
+               </div>
+             </div>
+             <div class="form-row">
+               <div class="form-group">
+                 <label for="orgAddress">Address:</label>
+                 <input type="text" id="orgAddress" formControlName="address" class="form-control">
+               </div>
+             </div>
+             <div class="form-row">
+              <div class="form-group">
+                 <label for="orgType">Organisation Type:</label>
+                 <select id="orgType" formControlName="orgType" class="form-control">
+                   <option value="PLT">PLT</option>
+                   <option value="INS">INS</option>
+                   <option value="CHN">CHN</option>
+                 </select>
+              </div>
+             </div>
+             <div class="form-row">
+               <div class="form-group">
+                 <label for="orgPhoneNumber">Phone Number:</label>
+                 <input type="tel" id="orgPhoneNumber" formControlName="phoneNumber" class="form-control">
+               </div>
+             </div>
+             <button type="submit" [disabled]="addOrgForm.invalid">Save</button>
+           </form>
+        </div>
+    </div>
+  </div>
+       
+  <div class = "modal" *ngIf="showEditOrgForm">
+    <div class="modal-content" >
+        <span class="close" (click)="closeEditOrgForm()">&times;</span>
+        <div class="form-container">
+           <h2>Edit Organization</h2>
+           <form [formGroup]="editOrgForm" (ngSubmit)="updateOrganization()">
+             <div class="form-row">
+               <div class="form-group">
+                 <label for="orgName">Name:</label>
+                 <input type="text" id="orgName" formControlName="name" class="form-control">
+               </div>
+             </div>
+             <div class="form-row">
+               <div class="form-group">
+                 <label for="orgAddress">Address:</label>
+                 <input type="text" id="orgAddress" formControlName="address" class="form-control">
+               </div>
+             </div>
+             <div class="form-row">
+              <div class="form-group">
+                 <label for="orgType">Organisation Type:</label>
+                 <select id="orgType" formControlName="orgType" class="form-control">
+                  <option value="PLT">PLT</option>
+                   <option value="INS">INS</option>
+                   <option value="CHN">CHN</option>
+                 </select>
+              </div>
+             </div>
+             <div class="form-row">
+               <div class="form-group">
+                 <label for="orgPhoneNumber">Phone Number:</label>
+                 <input type="tel" id="orgPhoneNumber" formControlName="phoneNumber" class="form-control">
+               </div>
+             </div>
+             <button type="submit" [disabled]="editOrgForm.invalid">Save</button>
+           </form>
+        </div>
+       </div>
+    </div>
+       </mat-sidenav-container>
+   

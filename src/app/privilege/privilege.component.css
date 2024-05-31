@@ -1,0 +1,70 @@
+.privilege-form {
+  max-width: 100%; /* Set max-width to 100% */
+  width: 100%; /* Set width to a percentage of the viewport width */
+  margin: 0 auto;
+  padding: 30px; /* Adjust the padding as needed */
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+h3, h6 {
+  margin: 10px 0;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.checkbox-group input[type="checkbox"] {
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: flex-start; /* Align buttons to the left */
+  margin-top: 20px; /* Add margin to separate buttons from form elements */
+}
+
+.button-group button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.button-group button:last-child {
+  margin-right: 0; /* Remove margin from the last button to prevent extra spacing */
+}
+
+.button-group button:hover {
+  background-color: #0056b3;
+}
+.notification-snackbar {
+  background-color: #4caf50; /* Green background */
+  color: white; /* White text */
+ }
+ 

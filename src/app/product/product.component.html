@@ -1,0 +1,169 @@
+<mat-sidenav-container class="container">
+  <mat-sidenav #sidenav [fixedInViewport]="true" [fixedTopGap]="60" mode="side" [opened]="isSidenavOpened">
+      <!-- Side Nav Content -->
+  </mat-sidenav>
+  
+  <div class="main-content">
+      <!-- Bubble Icon -->
+      <div class="bubble-icon">
+          <span class="bubble-number">Total Products: {{ filteredProducts.length }}</span>
+      </div>
+      <!-- Rectangle with Table -->
+      <div class="rectangle">
+          <h2>Products</h2>
+          <div class="search-container">
+              <input type="text" [(ngModel)]="searchQuery" placeholder="Search by product name" class="search-input">
+          </div>       
+          <table>
+              <thead>
+                  <tr>
+                      <th>Organisation</th>
+                      <th>Product Name</th>
+                      <th>Type</th>
+                      <th>Tag</th>
+                      <th>Config</th>
+                      <th>Description</th>
+                      
+                     
+                     
+                      <th>Actions</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let product of filteredProducts; let i = index">
+                      <td>{{ product.organization }}</td>
+                      <td>{{ product.name }}</td>
+                      <td>{{ product.type }}</td>
+                      <td>{{ product.tag }}</td>
+                      <td>{{product.config}}</td>
+                      <td>{{ product.description }}</td>
+                      
+                      <td>
+                          <button mat-icon-button *ngIf="canPerformAction('edit')" (click)="editProduct(i)">
+                              <mat-icon>edit</mat-icon>
+                          </button>
+                          <button mat-icon-button *ngIf="canPerformAction('delete')" (click)="removeProduct(i)">
+                              <mat-icon>delete</mat-icon>
+                          </button>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+  </div>
+  
+  <!-- Bubble Button -->
+  <div class="bubble-button" *ngIf="canPerformAction('add')" (click)="openAddProductForm()">
+      <span class="plus-sign">+</span>
+      Add Product
+  </div>
+  
+  <button (click)="emptyProductsArray()">Clear Products</button>
+
+  <!-- Add Product Form (Initially Hidden) -->
+  <div class="modal" *ngIf="showAddProductForm">
+      <div class="modal-content">
+          <span class="close" (click)="closeAddProductForm()">&times;</span>
+          <div class="form-container">
+              <h2>Add Product</h2>
+              <form [formGroup]="addProductForm" (ngSubmit)="addProduct()">
+                  <div class="form-row">
+                      <div class="form-group">
+                          <label for="organization">Organization:</label>
+                          <select id="organization" formControlName="organization" class="form-select">
+                              <option value="" disabled selected>Select Organization</option>
+                              <option *ngFor="let org of orgData" [value]="org?.name">{{ org?.name }}</option>
+                          </select>
+                      </div>
+                  </div>
+                  <div class="form-row">
+                      <div class="form-group">
+                          <label for="addProductName">Product Name:</label>
+                          <input type="text" id="addProductName" formControlName="name" class="form-control">
+                      </div>
+                  </div>
+                  <div class="form-row">
+                      <div class="form-group">
+                          <label for="addProductType">Type:</label>
+                          <input type="text" id="addProductType" formControlName="type" class="form-control">
+                      </div>
+                  </div>
+                  <div class="form-row">
+                      <div class="form-group">
+                          <label for="addProductTag">Tag:</label>
+                          <input type="text" id="addProductTag" formControlName="tag" class="form-control">
+                      </div>
+                  </div>
+                  
+                  <div class="form-row">
+                      <div class="form-group">
+                          <label for="addProductDescription">Description:</label>
+                          <textarea id="addProductDescription" formControlName="description" class="form-control"></textarea>
+                      </div>
+                  </div>
+                 
+                  <div class="form-row">
+                    <div class="form-group">
+                        <label for="addProductConfig">Config (JSON format):</label>
+                        <textarea id="addProductConfig" formControlName="config" class="form-control"></textarea>
+                    </div>
+                  </div>
+                  <button type="submit" [disabled]="addProductForm.invalid">Save</button>
+              </form>
+          </div>
+      </div>
+  </div>
+
+  <!-- Edit Product Form -->
+  <div class="modal" *ngIf="showEditProductForm">
+      <div class="modal-content">
+          <span class="close" (click)="closeEditProductForm()">&times;</span>
+          <div class="form-container">
+              <h2>Edit Product</h2>
+              <form [formGroup]="editProductForm" (ngSubmit)="updateProduct()">
+                  <div class="form-row">
+                      <div class="form-group">
+                          <label for="organization">Organization:</label>
+                          <select id="organization" formControlName="organization" class="form-select">
+                              <option value="" disabled selected>Select Organization</option>
+                              <option *ngFor="let org of orgData" [value]="org?.name">{{ org?.name }}</option>
+                          </select>
+                      </div>
+                  </div>
+                  <div class="form-row">
+                      <div class="form-group">
+                          <label for="editProductName">Product Name:</label>
+                          <input type="text" id="editProductName" formControlName="name" class="form-control">
+                      </div>
+                  </div>
+                  <div class="form-row">
+                      <div class="form-group">
+                          <label for="editProductType">Type:</label>
+                          <input type="text" id="editProductType" formControlName="type" class="form-control">
+                      </div>
+                  </div>
+                  <div class="form-row">
+                      <div class="form-group">
+                          <label for="editProductTag">Tag:</label>
+                          <input type="text" id="editProductTag" formControlName="tag" class="form-control">
+                      </div>
+                  </div>
+                  <div class="form-row">
+                      <div class="form-group">
+                          <label for="editProductDescription">Description:</label>
+                          <textarea id="editProductDescription" formControlName="description" class="form-control"></textarea>
+                      </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                        <label for="editProductConfig">Config (JSON format):</label>
+                        <textarea id="editProductConfig" formControlName="config" class="form-control"></textarea>
+                    </div>
+                  </div>
+                  
+                  <button type="submit" [disabled]="editProductForm.invalid">Update</button>
+              </form>
+          </div>
+      </div>
+  </div>
+</mat-sidenav-container>

@@ -1,0 +1,144 @@
+
+  .example-spacer {
+      flex: 1 1 auto;
+    }
+    .large-icon .mat-icon {
+      font-size: 40px;
+    }
+    #menuTitle {
+      font-size: medium;
+      margin-right: 20px;
+    }
+    
+    .mat-toolbar {
+      height: 60px;
+     
+    }
+    
+    .mat-sidenav {
+      background-color: #3F51B5;
+      width: 160px;
+    }
+    
+    .side-nav-items {
+      display: flexbox;
+      flex-direction: column;
+    }
+    
+    .side-menu-item {
+      color: white !important;
+      margin-top: 20px;
+    }
+    
+    .main-content {
+      margin: 20px;
+    }
+    
+  /* Adjusted CSS for the mat-sidenav-container */
+  .mat-sidenav-container {
+    max-width: calc(100% - 60px); /* Adjusted max-width to accommodate the rectangle */
+  
+
+  }
+
+  /* Media queries for responsiveness */
+  @media screen and (max-width: 768px) {
+    .mat-sidenav-container {
+      max-width: 100%; /* Full width for smaller screens */
+    }
+  }
+  .profile-dialog {
+    width: 300px; /* Adjust the width as needed */
+    padding: 20px;
+    background-color: #ffffff; /* White background */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+  }
+
+  .profile-dialog h2 {
+    margin-bottom: 20px;
+  }
+
+  .profile-dialog label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 16px; /* Adjust label font size */
+    color: #333333; /* Dark label color */
+  }
+
+  .profile-dialog input[type="text"],
+  .profile-dialog input[type="email"],
+  .profile-dialog input[type="password"] {
+    width: calc(100% - 22px); /* Adjust input width */
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #cccccc; /* Light gray border */
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 14px; /* Adjust input font size */
+  }
+
+  .profile-dialog button[type="submit"] {
+    background-color: #007bff; /* Blue button background */
+    color: #ffffff; /* White button text color */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px; /* Adjust button font size */
+  }
+
+  .profile-dialog button[type="submit"]:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+
+  /* Close button */
+  .profile-dialog .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #aaa;
+  }
+
+  .profile-dialog .close:hover,
+  .profile-dialog .close:focus {
+    color: #000;
+    text-decoration: none;
+  }
+
+
+
+
+  .submenu {
+    padding-left: 16px; /* Adjust the padding to fit your design */
+  }
+
+  .side-nav-items {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .side-menu-item {
+    display: flex;
+    align-items: center;
+  }
+
+  .side-menu-item .mat-icon {
+    margin-right: 8px; /* Adjust the margin as needed */
+  }
+  .side-nav-items .submenu a mat-icon {
+    margin-right: 8px; /* Adjust as needed */
+  }
+
+  .mat-sidenav {
+    background-color: #683cb4 !important; /* Change the background color */
+    width: 160px;
+  }
+  .active {
+ background-color: #3F51B5; /* Example background color */
+ color: white; /* Example text color */
+}
+
+ 

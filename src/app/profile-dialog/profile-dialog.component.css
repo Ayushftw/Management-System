@@ -1,0 +1,44 @@
+/* profile-dialog.component.css */
+
+.profile-dialog-container {
+    background-color: #f8f9fa; /* Light gray background */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    max-width: 400px;
+    margin: auto;
+}
+
+.profile-dialog-title {
+    margin-top: 0;
+    font-size: 24px;
+    color: #333333;
+    text-align: center; /* Center the title */
+    margin-bottom: 20px; /* Add space below the title */
+}
+
+.profile-info {
+    margin-bottom: 20px;
+}
+
+.profile-info p {
+    margin: 0;
+    line-height: 1.5;
+    margin-bottom: 5px; 
+}
+
+.close-button {
+    background-color: #007bff; /* Blue background color */
+    color: #ffffff; /* White text color */
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px; /* Increase padding */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;
+    margin: 0 auto; /* Center the button */
+}
+
+.close-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}

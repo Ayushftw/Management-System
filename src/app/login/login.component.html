@@ -1,0 +1,54 @@
+
+<div class="parent"> 
+  <div class="container" [ngClass]="isSignDivVisiable ? 'active' :'' " id="container">
+      <div class="form-container sign-up" >
+          <form>
+            <div class="input-group">
+                <input type="text" id="name" name="name" [(ngModel)]="signUpObj.name" required>
+                <label *ngIf="!signUpObj.name" for="firstName">Name</label>
+              </div>
+              <div class="input-group">
+                <input type="text" id="state" name="state" [(ngModel)]="signUpObj.state" required>
+                <label *ngIf="!signUpObj.state" for="state">State</label>
+              </div>
+              <div class="input-group">
+                <input type="text" id="gender" name="gender" [(ngModel)]="signUpObj.gender" required>
+                <label *ngIf="!signUpObj.gender" for="gender">Gender</label>
+              </div>
+              <div class="input-group">
+                <input type="email" id="email" name="email" [(ngModel)]="signUpObj.email" required>
+                <label *ngIf="!signUpObj.email" for="email">Email</label>
+              </div>
+              <div class="input-group">
+                <input type="password" id="password" name="password" [(ngModel)]="signUpObj.password" required>
+                <label *ngIf="!signUpObj.password" for="password">Password</label>
+              </div>
+              <button (click)="onRegister()">Sign Up</button>
+          </form>
+      </div>
+      <div class="form-container sign-in" >
+          <form>
+              <h1>Sign In</h1>
+              <span>or use your email password</span>
+              <input type="email" name="email" [(ngModel)]="loginObj.email" placeholder="Email">
+              <input type="password" name="password"   [(ngModel)]="loginObj.password" placeholder="Password">
+              <a href="#">→ Forget Your Password? ←</a>
+              <button (click)="onLogin()">Sign In</button>
+          </form>
+      </div>
+      <div class="toggle-container">
+          <div class="toggle">
+              <div class="toggle-panel toggle-left">
+                  <h1>Welcome Back!</h1>
+                  <p>Enter your personal details to use all of site features</p>
+                  <button type="button" class="hidden" id="login" (click)="isSignDivVisiable = false">Sign In</button>
+              </div>
+              <div class="toggle-panel toggle-right">
+                  <h1>Hello, Friend!</h1>
+                  <p>Register with your personal details to use all of site features</p>
+                  <button type="button" class="hidden" id="register" (click)="isSignDivVisiable = true">Sign Up</button>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

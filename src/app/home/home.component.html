@@ -1,0 +1,226 @@
+<mat-sidenav-container class="container">
+  <mat-sidenav #sidenav [fixedInViewport]="true" [fixedTopGap]="60" mode="side" [opened]="isSidenavOpened">
+     <!-- Side Nav Content -->
+  </mat-sidenav>
+ 
+  <div class="main-content">
+     <!-- Bubble Icon -->
+     <div class="bubble-icon">
+       <span class="bubble-number">Total Users: {{ filteredUsers.length }}</span>
+     </div>
+     <!-- Rectangle with Table -->
+     <div class="rectangle">
+       <h2>Users</h2>
+       <div class="search-container">
+        <input type="text" [(ngModel)]="searchQuery" placeholder="Search by name" class="search-input">
+       </div>       
+       <table>
+         <thead>
+           <tr>
+             <th>ID</th>
+             <th>Name</th>
+             <th>State</th>
+             <th>Gender</th>
+             <th>Email</th>
+             <th>Role</th>
+             <th>Org Name</th>
+             <th>Actions</th>
+           </tr>
+         </thead>
+         <tbody>
+           <tr *ngFor="let user of paginatedUsers; let i = index">
+            <td>{{ startingId + i }}</td>
+             <td>{{ user.name }}</td>
+             <td>{{ user.state }}</td>
+             <td>{{ user.gender }}</td>
+             <td>{{ user.email }}</td>
+             <td>{{user.role}}</td>
+             <td>{{user.organization}}</td>
+ 
+             <td>
+              <button mat-icon-button *ngIf="canPerformAction('edit')" (click)="editUser(i)">
+                <mat-icon>edit</mat-icon>
+             </button>
+             <button mat-icon-button *ngIf="canPerformAction('delete')" (click)="removeUser(i)">
+                <mat-icon>delete</mat-icon>
+             </button>
+             </td>
+           </tr>
+         </tbody>
+       </table>
+       <!-- Pagination controls -->
+   
+       <nav aria-label="Page navigation example">
+        <ul class="pagination">
+           <li class="page-item" [class.disabled]="currentPage === 1">
+             <a class="page-link" href="#" (click)="goToPage(1); $event.preventDefault()">First</a>
+           </li>
+           <li class="page-item" [class.disabled]="currentPage === 1">
+             <a class="page-link" href="#" (click)="previousPage(); $event.preventDefault()">Previous</a>
+           </li>
+           <li *ngFor="let page of getPageNumbers()" class="page-item" [class.active]="page === currentPage">
+             <a class="page-link" href="#" (click)="goToPage(page); $event.preventDefault()">{{ page }}</a>
+           </li>
+           <li class="page-item" [class.disabled]="currentPage === totalPages">
+             <a class="page-link" href="#" (click)="nextPage(); $event.preventDefault()">Next</a>
+           </li>
+           <li class="page-item" [class.disabled]="currentPage === totalPages">
+             <a class="page-link" href="#" (click)="goToPage(totalPages); $event.preventDefault()">Last</a>
+           </li>
+        </ul>
+       </nav>
+       
+ 
+     </div>
+  </div>
+  <!-- Bubble Button -->
+  <div class="bubble-button" *ngIf="canPerformAction('add')" (click)="openAddUserForm()">
+    <span class="plus-sign">+</span>
+    Add User
+   </div>
+   
+  <button (click)="emptyUsersArray()">Clear Users</button>
+  <!-- Add User Form (Initially Hidden) -->
+  <div class="modal" *ngIf="showAddUserForm">
+     <div class="modal-content">
+       <span class="close" (click)="closeAddUserForm()">&times;</span>
+       <div class="form-container">
+         <h2>Add User</h2>
+         <form [formGroup]="addUserForm" (submit)="saveUser()">
+           <!-- Form fields -->
+           <div class="form-row">
+             <div class="form-group"> 
+               <label for="name" class="form-label">Name:</label>
+               <input type="text" id="name" formControlName="name" class="form-control">
+             </div>
+           </div>
+           <div class="form-row">
+             <div class="form-group">
+               <label for="inputState">State:</label>
+               <select id="inputState" class="form-select" formControlName="state">
+                 <option value="" disabled selected>Select State</option>
+                 <!-- Add options dynamically -->
+                 <option *ngFor="let state of states" [value]="state">{{ state }}</option>
+               </select>
+             </div>
+           </div>
+           <div class="form-row">
+             <div class="form-group">
+               <label for="gender" class="form-label">Gender:</label>
+               <select id="gender" formControlName="gender" class="form-select">
+                 <option value="" disabled selected>Select Gender</option>
+                 <option value="Male">Male</option>
+                 <option value="Female">Female</option>
+                 <option value="Other">Other</option>
+               </select>
+             </div>
+           </div>
+           <div class="form-row">
+             <div class="form-group">
+               <label for="floatingpassword">Password:</label>
+               <input type="password" class="form-control" id="floatingpassword" formControlName="password">
+             </div>
+           </div>
+           <div class="form-row">
+             <div class="form-group">
+               <label for="floatinginput">Email:</label>
+               <input type="email" class="form-control" id="floatinginput" placeholder="name@example.com" formControlName="email">
+             </div>
+           </div>
+           <div class="form-row">
+             <div class="form-group">
+               <label for="orgSelect">Organization:</label>
+               <select id="orgSelect" class="form-select" formControlName="organization">
+                 <option value="" disabled selected>Select Organization</option>
+                 <option *ngFor="let org of orgData" [value]="org?.name">{{ org?.name }}</option>
+               </select>
+             </div>
+           </div>
+            <div class="form-row">
+             <div class="form-group">
+               <label for="roleSelect">Role:</label>
+               <select id="roleSelect" class="form-select" formControlName="role">
+                 <option value="" disabled selected>Select Role</option>
+                 <option >Admin</option>
+                 <option >Doctor</option>
+                 <option >Agent</option>
+               </select>
+             </div>
+           </div>
+           <!-- Save button -->
+           <button type="submit" [disabled]="addUserForm.invalid">Save</button>
+         </form>
+       </div>
+     </div>
+  </div>
+  <!-- Edit Form -->
+  <!-- Edit User Form -->
+  <div class="modal" *ngIf="showEditUserForm">
+     <div class="modal-content">
+       <span class="close" (click)="closeEditUserForm()">&times;</span>
+       <div class="form-container">
+         <h2>Edit User</h2>
+         <form [formGroup]="editUserForm" (submit)="saveEditedUser()">
+           <div class="form-row">
+             <div class="form-group">
+               <label for="name">Name:</label>
+               <input type="text" id="name" formControlName="name">
+             </div>
+           </div>
+           <div class="form-row">
+             <div class="form-group">
+               <label for="state">State:</label>
+               <select id="inputState" class="form-select" formControlName="state">
+                 <option value="" disabled selected>Select State</option>
+                 <!-- Add options dynamically -->
+                 <option *ngFor="let state of states" [value]="state">{{ state }}</option>
+               </select>
+             </div>
+           </div>
+           <div class="form-row">
+             <div class="form-group">
+               <label for="gender">Gender:</label>
+               <input type="text" id="gender" formControlName="gender">
+             </div>
+           </div>
+           <div class="form-row">
+             <div class="form-group">
+               <label for="email">Email:</label>
+               <input type="email" id="email" formControlName="email">
+             </div>
+           </div>
+           <div class="form-row">
+             <div class="form-group">
+               <label for="orgSelect">Organization:</label>
+               <select id="orgSelect" class="form-select" formControlName="organization">
+                 <option value="" disabled selected>Select Organization</option>
+                 <option *ngFor="let org of orgData" [value]=" org?.name">{{ org?.name }}</option>
+               </select>
+             </div>
+           </div>
+           
+           <div class="form-row">
+             <div class="form-group">
+               <label for="roleSelect">Role:</label>
+               <select id="roleSelect" class="form-select" formControlName="role">
+                 <option value="" disabled selected>Select Role</option>
+                 <option >Admin</option>
+                 <option >Doctor</option>
+                 <option >Agent</option>
+               </select>
+             </div>
+           </div>
+           
+           <div class="form-row">
+             <div class="form-group">
+               <label for="password">Password:</label>
+               <input type="password" id="password" formControlName="password">
+             </div>
+           </div>
+           <button type="submit" [disabled]="editUserForm.invalid">Save</button>
+         </form>
+       </div>
+     </div>
+  </div>
+ </mat-sidenav-container>
+ 
